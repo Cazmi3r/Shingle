@@ -24,6 +24,8 @@ class FileBuffer():
         """returns true if the file can be processed by shingle"""
         if not file.is_file():
             raise ValueError("File not found")
+        if file.suffix not in [".csv", ".csn"]:
+            raise ValueError("file extension is wrong")
         return True
 
 

@@ -8,7 +8,7 @@ class TestFileBuffer:
     """Tests the functionality of the file buffer"""
     def test_add_file(self):
         """can a file be added to the buffer"""
-        path = Path(r"data\test.txt")
+        path = Path(r"data\test.csv")
         file_buffer = fb(path)
         file_buffer = fb(path)
         with open(file_buffer.buffer[0], encoding="utf-8") as f:
