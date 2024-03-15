@@ -3,6 +3,7 @@
 from pathlib import Path
 from shingle.shingle import Shingle
 from shingle.shingle import FileBuffer as fb
+import pytest
 
 class TestFileBuffer:
     """Tests the functionality of the file buffer"""
@@ -18,3 +19,8 @@ class TestFileBuffer:
         path = Path(r"data\folder")
         file_buffer = fb(path,is_folder=True)
         assert True
+    def test_add_folder_not_found(self):
+        """can all files in a folder be added to the buffer"""
+        path = Path(r"data\NotAfolder")
+        with pytest.raises(ValueError):
+            file_buffer = fb(path,is_folder=True)
