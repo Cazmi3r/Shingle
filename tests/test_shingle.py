@@ -1,9 +1,8 @@
 """test cases for shingle and its file buffer"""
 
 from pathlib import Path
-from shingle.shingle import Shingle
-from shingle.shingle import FileBuffer as fb
 import pytest
+from shingle.shingle import FileBuffer as fb
 
 class TestFileBuffer:
     """Tests the functionality of the file buffer"""
