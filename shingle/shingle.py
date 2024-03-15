@@ -4,6 +4,7 @@ from pathlib import Path
 import pandas as pd
 
 class FileBuffer():
+    #TODO add validation to the buffer. Make sure it's not empty and files are valid
     """gathers files to be processed"""
     def __init__(self, path: Path, is_folder: bool=False):
         """
