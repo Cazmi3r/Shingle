@@ -22,6 +22,12 @@ class FileBuffer():
             self.buffer.append(self.path)
         else:
             raise ValueError("File not found")
+    def validate_file(self, file: Path):
+        """returns true if the file can be processed by shingle"""
+        if not file.is_file():
+            raise ValueError("File not found")
+        return True
+
 
 class Shingle:
     """Reorders a Mailing to be shingled"""
