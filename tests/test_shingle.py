@@ -13,6 +13,12 @@ class TestFileBuffer:
         file_buffer = fb(path)
         with open(file_buffer.buffer[0], encoding="utf-8") as f:
             assert f.read() == "hello I'm test.csv"
+    def test_add_file_not_found(self):
+        """throws value error when file can not be found"""
+        path = Path(r"data\testt.csv")
+        with pytest.raises(ValueError):
+            file_buffer = fb(path)
+            assert file_buffer
     def test_add_folder(self):
         """can all files in a folder be added to the buffer"""
         path = Path(r"data\folder")
