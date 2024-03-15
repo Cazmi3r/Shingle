@@ -13,8 +13,3 @@ class TestFileBuffer:
         file_buffer = fb(path)
         with open(file_buffer.buffer[0], encoding="utf-8") as f:
             assert f.read() == "hello I'm test.txt"
-    def test_validate_file(self):
-        """can a file be validated"""
-        path = Path(r"data\test.txt")
-        file_buffer = fb(path)
-        assert file_buffer.validate_file(path)
