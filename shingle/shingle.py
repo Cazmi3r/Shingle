@@ -16,6 +16,20 @@ class FileBuffer():
         self.buffer = []
         if not is_folder:
             self.add_file(self.path)
+        else:
+            self.add_folder(self.path)
+    def add_folder(self, path: Path):
+        """append all csv or csn files in a folder to the buffer"""
+        if self.validate_folder(path):
+            # glob folder for files to add then add them
+            print("folder is valid")
+            pass
+    def validate_folder(self, path: Path):
+        """Validates folder"""
+        if not path.is_dir():
+            raise ValueError("Folder doesn't exist")
+        else:
+            return True
     def add_file(self, file: Path):
         """append path as a file to buffer"""
         if self.validate_file(file):
