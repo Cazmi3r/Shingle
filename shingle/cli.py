@@ -8,16 +8,15 @@ def process_file():
     """process one file using cli"""
     print("Welcome to the Process File function")
     while True:
-        path = Path(input("Input path: "))
+        # collect path to file
         try:
-            file_buffer = fb(path)
+            # confirm path is valid
+            pass
         except ValueError:
-            print(path)
-            print("Not a valid file try again")
+            pass
+            # handle exception if path is not valid
         else:
-            file_buffer = fb(path)
-            with open(file_buffer.buffer[0], encoding="utf-8") as f:
-                print(f.read())
+            # process the file
             break
 def process_folder():
     """process all files in a folder cli"""
