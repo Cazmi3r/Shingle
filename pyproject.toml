@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "shingle"
+version = "0.0.1"
+dependencies = [
+    "pandas"
+]
+requires-python = ">=3.12.2"
+description = "Prepares Print files to be shingled"
+readme = "README.md"
+license = { file = "LICENSE" }
+
+[project.scripts]
+process-file = "shingle.cli:process_file"
+process-folder = "shingle.cli:process_folder"
