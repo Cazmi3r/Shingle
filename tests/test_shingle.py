@@ -17,9 +17,10 @@ class TestFileBuffer:
         """can all files in a folder be added to the buffer"""
         path = Path(r"data\folder")
         file_buffer = fb(path,is_folder=True)
-        assert True
+        assert file_buffer.validate_folder(path)
     def test_add_folder_not_found(self):
         """can all files in a folder be added to the buffer"""
         path = Path(r"data\NotAfolder")
         with pytest.raises(ValueError):
             file_buffer = fb(path,is_folder=True)
+            assert file_buffer
