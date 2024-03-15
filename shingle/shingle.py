@@ -15,13 +15,11 @@ class FileBuffer():
         self.is_folder = is_folder
         self.buffer = []
         if not is_folder:
-            self.add_file()
-    def add_file(self):
+            self.add_file(self.path)
+    def add_file(self, file: Path):
         """append path as a file to buffer"""
-        if self.path.is_file():
-            self.buffer.append(self.path)
-        else:
-            raise ValueError("File not found")
+        if self.validate_file(file):
+            self.buffer.append(file)
     def validate_file(self, file: Path):
         """returns true if the file can be processed by shingle"""
         if not file.is_file():
