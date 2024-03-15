@@ -12,4 +12,4 @@ class TestFileBuffer:
         file_buffer = fb(path)
         file_buffer = fb(path)
         with open(file_buffer.buffer[0], encoding="utf-8") as f:
-            assert f.read() == "hello I'm test.txt"
+            assert f.read() == "hello I'm test.csv"
