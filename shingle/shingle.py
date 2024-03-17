@@ -22,8 +22,11 @@ class FileBuffer():
     def add_folder(self, path: Path):
         """append all csv or csn files in a folder to the buffer"""
         if self.validate_folder(path):
-            # glob folder for files to add then add them
             print("folder is valid")
+            file_generator = path.glob('*[.]cs[n,v]')
+            for file in file_generator:
+                file_path = Path(file)
+                self.add_file(file_path)
             pass
     def validate_folder(self, path: Path):
         """Validates folder"""
@@ -35,11 +38,15 @@ class FileBuffer():
         """append path as a file to buffer"""
         if self.validate_file(file):
             self.buffer.append(file)
+            print(f"Added File: {file}")
+        print(f"file {file} was not added")
     def validate_file(self, file: Path):
         """returns true if the file can be processed by shingle"""
+        print("entering Validate_file")
+        print(f"trying to add file {file} to buffer")
         if not file.is_file():
             raise ValueError("File not found")
-        if file.suffix not in [".csv", ".csn"]:
+        if file.suffix not in [".csv", ".csn",".CSV", ".CSN"]:
             raise ValueError("file extension is wrong")
         return True
 

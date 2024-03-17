@@ -23,7 +23,14 @@ class TestFileBuffer:
         """can all files in a folder be added to the buffer"""
         path = Path(r"data\folder")
         file_buffer = fb(path,is_folder=True)
-        assert file_buffer.validate_folder(path)
+        print(f"file buffer: {file_buffer.buffer}")
+        expected_result = ["test_file1.CSN", "test_file2.CSN", "test_file3.CSN"]
+        test_case = []
+        for file in file_buffer.buffer:
+            test_case.append(file.name)
+        print(f"expected Result: {expected_result}")
+        print(f"test case: {test_case}")
+        assert expected_result == test_case
     def test_add_folder_not_found(self):
         """throws value error when folder can not be found"""
         path = Path(r"data\NotAfolder")
