@@ -58,26 +58,20 @@ class FileBuffer():
 
 class Shingle:
     """Reorders a Mailing to be shingled"""
-    def __init__(self, file_buffer:FileBuffer):
+    def __init__(self, path, ns:int, ew:int, is_folder:bool=False):
         """
-        optionally takes a file to process or a path to process.
-        if neither is populated process will fail
-        path_mode determines if shingle should prioritize processing a path or a single file
-        the buffer holds the files to be shingled
+        ns = the number of records up and down on a page
+        ew = the number of records left and right on a page
+        is_folder determains if the program should process a file at the 
+        path or all files at the path
+        nup is how many records appear on a page
         """
-
-        self.file_buffer = file_buffer
+        self.ns = ns
+        self.ew = ew
+        self.nup = ns *ew
+        self.buffer = FileBuffer(path, is_folder)
     def process(self):
         """process the files in the buffer"""
-        pass
-    def load_buffer(self):
-        """
-        loads the buffer with files to process
-        if in path mode
-        creates a list from all csn and csv files
-        if in file mode
-        creates a list of size 1 using the file provided
-        """
         pass
     def validate_file(self, file):
         """validate file is a proper value"""
