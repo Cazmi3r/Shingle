@@ -5,7 +5,6 @@ import pytest
 from shingle.shingle import FileBuffer as fb
 
 class TestFileBuffer:
-    #TODO add files to 'folder' to confirm we can add those files to buffer
     """Tests the functionality of the file buffer"""
     def test_add_file(self):
         """can a file be added to the buffer"""
