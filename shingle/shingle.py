@@ -15,10 +15,10 @@ class FileBuffer():
         self.path = path
         self.is_folder = is_folder
         self.buffer = []
-        if not is_folder:
-            self.add_file(self.path)
-        else:
+        if is_folder:
             self.add_folder(self.path)
+        else:
+            self.add_file(self.path)
     def add_folder(self, path: Path):
         """append all csv or csn files in a folder to the buffer"""
         if self.validate_folder(path):
@@ -49,6 +49,7 @@ class FileBuffer():
         if file.suffix not in [".csv", ".csn",".CSV", ".CSN"]:
             raise ValueError("file extension is wrong")
         return True
+
 
 
 class Shingle:
