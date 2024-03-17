@@ -2,7 +2,6 @@
 
 from pathlib import Path
 from shingle.shingle import Shingle
-from shingle.shingle import FileBuffer as fb
 
 def process_file():
     """process one file using cli"""
@@ -21,3 +20,6 @@ def process_file():
 def process_folder():
     """process all files in a folder cli"""
     print("Welcome to the Process Folder function")
+    path = Path(r"C:\BCC\FS\Input")
+    shingle = Shingle(path, 4, 4, is_folder=True)
+    shingle.process()
