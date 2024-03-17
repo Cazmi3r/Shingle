@@ -82,16 +82,15 @@ class Shingle:
             file = self.buffer.pop_file()
             if self.validate_file(file):
                 input_df = pd.read_csv(file)
-                new_index = self.generate_new_index()
-
-
-        pass
+                new_index = self.generate_new_index(len(input_df))
+                output_df = input_df.reindex(new_index)
+                output_df.to_csv(str(file)[:-4]+"_Shingle.CSN", index=None)
     def validate_file(self, file):
         """validate file is a proper value"""
         return True
     def is_buffer_empty(self):
         """checks to see if there are more files in the buffer"""
-        if len(self.buffer) == 0:
+        if len(self.buffer.buffer) == 0:
             return True
         return False
     def generate_new_index(self, size):
