@@ -57,4 +57,9 @@ class TestShingle:
         shingle = Shingle(path, 3, 3)
         answer = [0, 1, 2, 6, 7, 8, 12, 13, 14, 3, 4, 5, 9, 10, 11, 15, 16, 17]
         assert shingle.generate_new_index(18) == answer
-    
+    def test_generate_seq_16up(self):
+        """can we generate the proper seq for a file 16up"""
+        path = Path(r"data\test_file 16up.CSN")
+        shingle = Shingle(path, 4, 4)
+        answer = [0, 1, 2, 3, 8, 9, 10, 11, 16, 17, 18, 19, 24, 25, 26, 27, 4, 5, 6, 7, 12, 13, 14, 15, 20, 21, 22, 23, 28, 29, 30, 31]
+        assert shingle.generate_new_index(32) == answer
