@@ -51,10 +51,10 @@ class TestShingle:
         shingle = Shingle(path, 3, 3)
         print(shingle)
         assert True
-    def test_process_single_file(self):
-        """can we create a single file 9up"""
+    def test_generate_seq(self):
+        """can we generate the proper seq for a file 9up"""
         path = Path(r"data\folder\test_file1.CSN")
         shingle = Shingle(path, 3, 3)
-        shingle.process()
-        assert False
+        answer = [0, 1, 2, 6, 7, 8, 12, 13, 14, 3, 4, 5, 9, 10, 11, 15, 16, 17]
+        assert shingle.generate_new_index(18) == answer
     

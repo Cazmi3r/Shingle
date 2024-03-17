@@ -78,12 +78,44 @@ class Shingle:
         self.buffer = FileBuffer(path, is_folder)
     def process(self):
         """process the files in the buffer"""
+        while not self.is_buffer_empty():
+            file = self.buffer.pop_file()
+            if self.validate_file(file):
+                input_df = pd.read_csv(file)
+                new_index = self.generate_new_index()
+
+
         pass
     def validate_file(self, file):
         """validate file is a proper value"""
-        pass
+        return True
     def is_buffer_empty(self):
         """checks to see if there are more files in the buffer"""
         if len(self.buffer) == 0:
             return True
         return False
+    def generate_new_index(self, size):
+        """generates the index for the output"""
+        # fill original seq list
+        seq_original = []
+        for i in range(size):
+            seq_original.append(i)
+        # Generate number of empty buckets 
+        ns_buckets = []
+        for i in range(self.ns):
+            ns_buckets.append([])
+        # How many seq should go in each bucket
+        row_len = int(size/self.ew)
+        # add seq to each bucket
+        for bucket in ns_buckets:
+            for i in range(row_len):
+                bucket.append(seq_original.pop(0))
+        # how many pages are there
+        pages = int(row_len/self.ew)
+        # create output
+        seq_output = []
+        for i in range(pages):
+            for bucket in ns_buckets:
+                for j in range(self.ew):
+                    seq_output.append(bucket.pop(0))
+        return seq_output
