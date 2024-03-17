@@ -44,5 +44,6 @@ class TestShingle:
         """can we create a shingle without error"""
         path = Path(r"data\folder\test_file1.CSN")
         shingle = Shingle(path, 3, 3)
+        print(shingle)
         assert True
     
