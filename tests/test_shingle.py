@@ -70,3 +70,17 @@ class TestShingle:
         shingle = Shingle(path, 3, 3)
         shingle.process()
         assert False
+    def test_process_folder_9up(self):
+        """can we generate a folder of 9up files"""
+        # TODO Currently works but I need to fix the testing for this
+        path = Path(r"data\folder")
+        shingle = Shingle(path, 3, 3, is_folder=True)
+        shingle.process()
+        assert False
+    def test_process_file_16up(self):
+        """can we generate a 16up file"""
+        # TODO Currently works but I need to fix the testing for this
+        path = Path(r"data\test_file 16up.CSN")
+        shingle = Shingle(path, 4, 4)
+        shingle.process()
+        assert False
