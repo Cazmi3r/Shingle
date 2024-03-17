@@ -76,3 +76,8 @@ class Shingle:
     def validate_file(self, file):
         """validate file is a proper value"""
         pass
+    def is_buffer_empty(self):
+        """checks to see if there are more files in the buffer"""
+        if len(self.buffer) == 0:
+            return True
+        return False

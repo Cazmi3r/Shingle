@@ -46,4 +46,10 @@ class TestShingle:
         shingle = Shingle(path, 3, 3)
         print(shingle)
         assert True
+    def test_process_single_file(self):
+        """can we create a single file 9up"""
+        path = Path(r"data\folder\test_file1.CSN")
+        shingle = Shingle(path, 3, 3)
+        shingle.process()
+        assert False
     
