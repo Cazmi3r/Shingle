@@ -28,7 +28,6 @@ class FileBuffer():
             for file in file_generator:
                 file_path = Path(file)
                 self.add_file(file_path)
-            pass
     def validate_folder(self, path: Path):
         """Validates folder"""
         if not path.is_dir():
