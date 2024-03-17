@@ -37,6 +37,11 @@ class TestFileBuffer:
         with pytest.raises(ValueError):
             file_buffer = fb(path,is_folder=True)
             assert file_buffer
+    def test_pop(self):
+        """can we return an object in the buffer"""
+        path = Path(r"data\test.csv")
+        file_buffer = fb(path)
+        assert file_buffer.pop_file() == path
 
 class TestShingle:
     """Tests the functionality of the shingle object"""

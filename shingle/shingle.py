@@ -54,6 +54,12 @@ class FileBuffer():
         if len(self.buffer) == 0:
             return False
         return True
+    def pop_file(self):
+        """returns the last object added to the buffer"""
+        if self.validate_buffer():
+            return self.buffer.pop()
+        return False
+
 
 
 class Shingle:
