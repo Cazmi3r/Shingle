@@ -3,6 +3,7 @@
 from pathlib import Path
 import pytest
 from shingle.shingle import FileBuffer as fb
+from shingle.shingle import Shingle
 
 class TestFileBuffer:
     """Tests the functionality of the file buffer"""
@@ -36,3 +37,12 @@ class TestFileBuffer:
         with pytest.raises(ValueError):
             file_buffer = fb(path,is_folder=True)
             assert file_buffer
+
+class TestShingle:
+    """Tests the functionality of the shingle object"""
+    def test_create_shingle(self):
+        """can we create a shingle without error"""
+        path = Path(r"data\folder\test_file1.CSN")
+        shingle = Shingle(path, 3, 3)
+        assert True
+    
