@@ -51,7 +51,7 @@ class TestShingle:
         shingle = Shingle(path, 3, 3)
         print(shingle)
         assert True
-    def test_generate_seq(self):
+    def test_generate_seq_9up(self):
         """can we generate the proper seq for a file 9up"""
         path = Path(r"data\folder\test_file1.CSN")
         shingle = Shingle(path, 3, 3)
