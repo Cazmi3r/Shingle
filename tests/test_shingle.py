@@ -4,7 +4,7 @@ from pathlib import Path
 import pytest
 from shingle.shingle import FileBuffer as fb
 from shingle.shingle import Shingle
-
+# TODO add cleanup steps to tests as they conflict with eachother 
 class TestFileBuffer:
     """Tests the functionality of the file buffer"""
     def test_add_file(self):
