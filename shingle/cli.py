@@ -21,5 +21,6 @@ def process_folder():
     """process all files in a folder cli"""
     print("Welcome to the Process Folder function")
     path = Path(r"C:\BCC\FS\Input")
-    shingle = Shingle(path, 4, 4, is_folder=True)
+    nup = int(input("How many records in a row? "))
+    shingle = Shingle(path, nup, nup, is_folder=True)
     shingle.process()
