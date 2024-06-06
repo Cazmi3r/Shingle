@@ -39,7 +39,8 @@ class FileBuffer():
         if self.validate_file(file):
             self.buffer.append(file)
             print(f"Added File: {file}")
-        print(f"file {file} was not added")
+        else:
+            print(f"file {file} was not added")
     def validate_file(self, file: Path):
         """returns true if the file can be processed by shingle"""
         print("entering Validate_file")
