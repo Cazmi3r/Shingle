@@ -62,7 +62,8 @@ class FileBuffer():
         return False
 
 
-
+#TODO figure out how to work with files that do not contain a number of records divisibale by nup
+# I should do this by adding dummy records at the end of the file until it matches
 class Shingle:
     """Reorders a Mailing to be shingled"""
     def __init__(self, path, ns:int, ew:int, is_folder:bool=False):
@@ -83,6 +84,7 @@ class Shingle:
             file = self.buffer.pop_file()
             if self.validate_file(file):
                 input_df = pd.read_csv(file)
+                # Add extra records here
                 new_index = self.generate_new_index(len(input_df))
                 output_df = input_df.reindex(new_index)
                 output_df.to_csv(str(file)[:-4]+"_Shingle.CSN", index=None)
@@ -119,3 +121,9 @@ class Shingle:
                 for j in range(self.ew):
                     seq_output.append(bucket.pop(0))
         return seq_output
+    def copy_bottom_record(self, df, repeat):
+        """appends bottom record to df repeat num of times"""
+        last_record = pd.DataFrame(df[-1:].values, columns = df.columns)
+        for i in range(repeat):
+            df = pd.concat([df, last_record])
+        return df
