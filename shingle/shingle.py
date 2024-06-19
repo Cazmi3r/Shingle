@@ -84,8 +84,16 @@ class Shingle:
             file = self.buffer.pop_file()
             if self.validate_file(file):
                 input_df = pd.read_csv(file)
-                # Add extra records here
-                new_index = self.generate_new_index(len(input_df))
+                rows_in_file = len(input_df)
+                # how many records are on the last page
+                extra_records = rows_in_file % self.nup
+                # how many records need to be added to make the file len divide into Nup 
+                records_to_add = self.nup - extra_records
+                # add extra records if needed then update rows in files
+                if records_to_add != 0:
+                    input_df = self.copy_bottom_record(input_df, records_to_add)
+                    rows_in_file = len(input_df)
+                new_index = self.generate_new_index(rows_in_file)
                 output_df = input_df.reindex(new_index)
                 output_df.to_csv(str(file)[:-4]+"_Shingle.CSN", index=None)
     def validate_file(self, file):
@@ -126,4 +134,5 @@ class Shingle:
         last_record = pd.DataFrame(df[-1:].values, columns = df.columns)
         for i in range(repeat):
             df = pd.concat([df, last_record])
+        df.reset_index(drop=True, inplace=True)
         return df
