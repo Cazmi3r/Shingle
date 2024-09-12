@@ -28,12 +28,6 @@ class FileBuffer():
             for file in file_generator:
                 file_path = Path(file)
                 self.add_file(file_path)
-    def _validate_folder(self, path: Path):
-        """Validates folder"""
-        if not path.is_dir():
-            raise ValueError("Folder doesn't exist")
-        else:
-            return True
     def add_file(self, file: Path):
         """append path as a file to buffer"""
         if self._validate_file(file):
@@ -41,6 +35,11 @@ class FileBuffer():
             print(f"Added File: {file}")
         else:
             print(f"file {file} was not added")
+    def pop_file(self):
+        """returns the last object added to the buffer"""
+        if self._validate_buffer():
+            return self.buffer.pop()
+        return False
     def _validate_file(self, file: Path):
         """returns true if the file can be processed by shingle"""
         print("entering Validate_file")
@@ -55,11 +54,12 @@ class FileBuffer():
         if len(self.buffer) == 0:
             return False
         return True
-    def pop_file(self):
-        """returns the last object added to the buffer"""
-        if self._validate_buffer():
-            return self.buffer.pop()
-        return False
+    def _validate_folder(self, path: Path):
+        """Validates folder"""
+        if not path.is_dir():
+            raise ValueError("Folder doesn't exist")
+        else:
+            return True
 
 
 class Shingle:
