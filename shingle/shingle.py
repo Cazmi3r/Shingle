@@ -98,6 +98,7 @@ class Shingle:
                 output_df.to_csv(str(file)[:-4]+"_Shingle.CSN", index=None)
     def validate_file(self, file):
         """validate file is a proper value"""
+        print(file)
         return True
     def is_buffer_empty(self):
         """checks to see if there are more files in the buffer"""
@@ -126,13 +127,17 @@ class Shingle:
         seq_output = []
         for i in range(pages):
             for bucket in ns_buckets:
+                #TODO figure out how to run this without caring about the itterable
                 for j in range(self.ew):
+                    print(j)
                     seq_output.append(bucket.pop(0))
         return seq_output
     def copy_bottom_record(self, df, repeat):
         """appends bottom record to df repeat num of times"""
         last_record = pd.DataFrame(df[-1:].values, columns = df.columns)
+        #TODO figure out how to run this without caring about the itterable
         for i in range(repeat):
+            print(i)
             df = pd.concat([df, last_record])
         df.reset_index(drop=True, inplace=True)
         return df
