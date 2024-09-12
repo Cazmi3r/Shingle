@@ -80,6 +80,7 @@ class Shingle:
         """process the files in the buffer"""
         while not self._is_buffer_empty():
             file = self.buffer.pop_file()
+            print(f"Processing: {file}")
             input_df = pd.read_csv(file)
             rows_in_file = len(input_df)
             # how many records are on the last page
