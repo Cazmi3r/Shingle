@@ -18,7 +18,7 @@ class FileBuffer():
             self.add_folder(self.path)
         else:
             self.add_file(self.path)
-        if not self.validate_buffer:
+        if not self._validate_buffer:
             raise ValueError("Buffer was created with nothing in it")
     def add_folder(self, path: Path):
         """append all csv or csn files in a folder to the buffer"""
@@ -50,14 +50,14 @@ class FileBuffer():
         if file.suffix not in [".csv", ".csn",".CSV", ".CSN"]:
             raise ValueError("file extension is wrong")
         return True
-    def validate_buffer(self):
+    def _validate_buffer(self):
         """checks to see if buffer is empty"""
         if len(self.buffer) == 0:
             return False
         return True
     def pop_file(self):
         """returns the last object added to the buffer"""
-        if self.validate_buffer():
+        if self._validate_buffer():
             return self.buffer.pop()
         return False
 
