@@ -80,24 +80,19 @@ class Shingle:
         """process the files in the buffer"""
         while not self._is_buffer_empty():
             file = self.buffer.pop_file()
-            if self._validate_file(file):
-                input_df = pd.read_csv(file)
+            input_df = pd.read_csv(file)
+            rows_in_file = len(input_df)
+            # how many records are on the last page
+            extra_records = rows_in_file % self.nup
+            # how many records need to be added to make the file len divide into Nup 
+            records_to_add = self.nup - extra_records
+            # add extra records if needed then update rows in files
+            if extra_records != 0:
+                input_df = self._copy_bottom_record(input_df, records_to_add)
                 rows_in_file = len(input_df)
-                # how many records are on the last page
-                extra_records = rows_in_file % self.nup
-                # how many records need to be added to make the file len divide into Nup 
-                records_to_add = self.nup - extra_records
-                # add extra records if needed then update rows in files
-                if extra_records != 0:
-                    input_df = self._copy_bottom_record(input_df, records_to_add)
-                    rows_in_file = len(input_df)
-                new_index = self._generate_new_index(rows_in_file)
-                output_df = input_df.reindex(new_index)
-                output_df.to_csv(str(file)[:-4]+"_Shingle.CSN", index=None)
-    def _validate_file(self, file):
-        """validate file is a proper value"""
-        print(file)
-        return True
+            new_index = self._generate_new_index(rows_in_file)
+            output_df = input_df.reindex(new_index)
+            output_df.to_csv(str(file)[:-4]+"_Shingle.CSN", index=None)
     def _is_buffer_empty(self):
         """checks to see if there are more files in the buffer"""
         if len(self.buffer.buffer) == 0:
