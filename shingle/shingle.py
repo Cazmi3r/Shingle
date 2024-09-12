@@ -64,18 +64,21 @@ class FileBuffer():
 
 class Shingle:
     """Reorders a Mailing to be shingled"""
-    def __init__(self, path, ns:int, ew:int, is_folder:bool=False):
+    def __init__(self, path, ns:int, ew:int, is_folder:bool=False, direction='EW'):
         """
         ns = the number of records up and down on a page
         ew = the number of records left and right on a page
         is_folder determains if the program should process a file at the 
         path or all files at the path
         nup is how many records appear on a page
+        direction = determins if the records should run east to west or north to south on a
+        page. EW is the default. acceptable values are EW and NS
         """
         self.ns = ns
         self.ew = ew
         self.nup = ns *ew
         self.buffer = FileBuffer(path, is_folder)
+        self.direction = direction
     def process(self):
         """process the files in the buffer"""
         while not self._is_buffer_empty():
@@ -119,10 +122,19 @@ class Shingle:
         pages = int(row_len/self.ew)
         # create output
         seq_output = []
-        for i in range(pages):
-            for bucket in ns_buckets:
-                for _ in range(self.ew):
+        return self._generate_new_index_helper(pages, ns_buckets, seq_output)
+    def _generate_new_index_helper(self, pages, ns_buckets, seq_output):
+        if self.direction == 'EW':
+            for _ in range(pages):
+                for bucket in ns_buckets:
+                    for _ in range(self.ew):
+                        seq_output.append(bucket.pop(0))
+        elif self.direction == 'NS':
+            for _ in range(pages * self.nup):
+                for bucket in ns_buckets:
                     seq_output.append(bucket.pop(0))
+        else:
+            raise ValueError(f"Direction Variable set wrong. Variable: {self.direction}")
         return seq_output
     def _copy_bottom_record(self, df, repeat):
         """appends bottom record to df repeat num of times"""

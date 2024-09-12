@@ -22,5 +22,6 @@ def process_folder():
     print("Welcome to the Process Folder function")
     path = Path(r"C:\BCC\FS\Input")
     nup = int(input("How many records in a row? "))
-    shingle = Shingle(path, nup, nup, is_folder=True)
+    direction = input("Input a direction (NS or EW): ")
+    shingle = Shingle(path, nup, nup, is_folder=True, direction=direction)
     shingle.process()
