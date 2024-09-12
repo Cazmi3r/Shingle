@@ -22,13 +22,13 @@ class FileBuffer():
             raise ValueError("Buffer was created with nothing in it")
     def add_folder(self, path: Path):
         """append all csv or csn files in a folder to the buffer"""
-        if self.validate_folder(path):
+        if self._validate_folder(path):
             print("folder is valid")
             file_generator = path.glob('*[.]cs[n,v]')
             for file in file_generator:
                 file_path = Path(file)
                 self.add_file(file_path)
-    def validate_folder(self, path: Path):
+    def _validate_folder(self, path: Path):
         """Validates folder"""
         if not path.is_dir():
             raise ValueError("Folder doesn't exist")
@@ -36,12 +36,12 @@ class FileBuffer():
             return True
     def add_file(self, file: Path):
         """append path as a file to buffer"""
-        if self.validate_file(file):
+        if self._validate_file(file):
             self.buffer.append(file)
             print(f"Added File: {file}")
         else:
             print(f"file {file} was not added")
-    def validate_file(self, file: Path):
+    def _validate_file(self, file: Path):
         """returns true if the file can be processed by shingle"""
         print("entering Validate_file")
         print(f"trying to add file {file} to buffer")
@@ -78,9 +78,9 @@ class Shingle:
         self.buffer = FileBuffer(path, is_folder)
     def process(self):
         """process the files in the buffer"""
-        while not self.is_buffer_empty():
+        while not self._is_buffer_empty():
             file = self.buffer.pop_file()
-            if self.validate_file(file):
+            if self._validate_file(file):
                 input_df = pd.read_csv(file)
                 rows_in_file = len(input_df)
                 # how many records are on the last page
@@ -89,21 +89,21 @@ class Shingle:
                 records_to_add = self.nup - extra_records
                 # add extra records if needed then update rows in files
                 if extra_records != 0:
-                    input_df = self.copy_bottom_record(input_df, records_to_add)
+                    input_df = self._copy_bottom_record(input_df, records_to_add)
                     rows_in_file = len(input_df)
-                new_index = self.generate_new_index(rows_in_file)
+                new_index = self._generate_new_index(rows_in_file)
                 output_df = input_df.reindex(new_index)
                 output_df.to_csv(str(file)[:-4]+"_Shingle.CSN", index=None)
-    def validate_file(self, file):
+    def _validate_file(self, file):
         """validate file is a proper value"""
         print(file)
         return True
-    def is_buffer_empty(self):
+    def _is_buffer_empty(self):
         """checks to see if there are more files in the buffer"""
         if len(self.buffer.buffer) == 0:
             return True
         return False
-    def generate_new_index(self, size):
+    def _generate_new_index(self, size):
         """generates the index for the output"""
         # fill original seq list
         seq_original = []
@@ -128,7 +128,7 @@ class Shingle:
                 for _ in range(self.ew):
                     seq_output.append(bucket.pop(0))
         return seq_output
-    def copy_bottom_record(self, df, repeat):
+    def _copy_bottom_record(self, df, repeat):
         """appends bottom record to df repeat num of times"""
         last_record = pd.DataFrame(df[-1:].values, columns = df.columns)
         for _ in range(repeat):
